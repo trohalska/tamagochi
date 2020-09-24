@@ -1,228 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>tanagichi</groupId>
+
+    <groupId>world.ucode</groupId>
     <artifactId>tamagochi</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <repositories>
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>Central Repository</name>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <releases>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>Central Repository</name>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </pluginRepository>
-    </pluginRepositories>
+    <packaging>jar</packaging>
+    <version>1.0</version>
+    <name>tamagochi</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <!-- https://maven.apache.org/general.html#encoding-warning -->
+<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+    </properties>
+
+    <dependencies>
+        <!-- tag::javafx[] -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>15</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>15</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>15</version>
+        </dependency>
+        <!-- end::javafx[] -->
+        <!-- tag::junit[] -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- end::junit[] -->
+    </dependencies>
+
     <build>
-        <sourceDirectory>/Users/trohalska/tamagochi/src/main/java</sourceDirectory>
-        <scriptSourceDirectory>/Users/trohalska/tamagochi/src/main/scripts</scriptSourceDirectory>
-        <testSourceDirectory>/Users/trohalska/tamagochi/src/test/java</testSourceDirectory>
-        <outputDirectory>/Users/trohalska/tamagochi/target/classes</outputDirectory>
-        <testOutputDirectory>/Users/trohalska/tamagochi/target/test-classes</testOutputDirectory>
-        <resources>
-            <resource>
-                <directory>/Users/trohalska/tamagochi/src/main/resources</directory>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>/Users/trohalska/tamagochi/src/test/resources</directory>
-            </testResource>
-        </testResources>
-        <directory>/Users/trohalska/tamagochi/target</directory>
-        <finalName>tamagochi-1.0-SNAPSHOT</finalName>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.3</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.2-beta-5</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.8</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.3</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
+
             <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
                 <executions>
+                    <!-- Attach the shade into the package phase -->
                     <execution>
-                        <id>default-clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <id>default-testResources</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>testResources</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-resources</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>resources</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <id>default-jar</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-testCompile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12.4</version>
-                <executions>
-                    <execution>
-                        <id>default-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <id>default-install</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>install</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <id>default-deploy</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.3</version>
-                <executions>
-                    <execution>
-                        <id>default-site</id>
-                        <phase>site</phase>
-                        <goals>
-                            <goal>site</goal>
+                            <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>/Users/trohalska/tamagochi/target/site</outputDirectory>
-                            <reportPlugins>
-                                <reportPlugin>
-                                    <groupId>org.apache.maven.plugins</groupId>
-                                    <artifactId>maven-project-info-reports-plugin</artifactId>
-                                </reportPlugin>
-                            </reportPlugins>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-deploy</id>
-                        <phase>site-deploy</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>/Users/trohalska/tamagochi/target/site</outputDirectory>
-                            <reportPlugins>
-                                <reportPlugin>
-                                    <groupId>org.apache.maven.plugins</groupId>
-                                    <artifactId>maven-project-info-reports-plugin</artifactId>
-                                </reportPlugin>
-                            </reportPlugins>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>world.ucode.Tamagochi</mainClass>
+                                </transformer>
+                            </transformers>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.4</version>
                 <configuration>
-                    <outputDirectory>/Users/trohalska/tamagochi/target/site</outputDirectory>
-                    <reportPlugins>
-                        <reportPlugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-project-info-reports-plugin</artifactId>
-                        </reportPlugin>
-                    </reportPlugins>
+                    <mainClass>world.ucode.Tamagochi</mainClass>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>world.ucode.Tamagochi</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+
         </plugins>
     </build>
-    <reporting>
-        <outputDirectory>/Users/trohalska/tamagochi/target/site</outputDirectory>
-    </reporting>
+
 </project>
