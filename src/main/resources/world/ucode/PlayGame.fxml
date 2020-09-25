@@ -6,40 +6,66 @@
 <?import java.net.URL?>
 <?imposr world.ucode.MainMenuController?>
 
-<GridPane
-          xmlns="http://javafx.com/javafx/11.0.2"
-          xmlns:fx="http://javafx.com/fxml/1">
-   <columnConstraints>
-      <ColumnConstraints minWidth="600" prefWidth="600"
-                         maxWidth="Infinity" halignment="CENTER">
-      </ColumnConstraints>
-   </columnConstraints>
+<GridPane fx:controller="world.ucode.PlayGameController"
+        xmlns="http://javafx.com/javafx/11.0.2"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:id="gridPane">
+    <columnConstraints>
+        <ColumnConstraints minWidth="450" prefWidth="450"
+                           maxWidth="Infinity" halignment="CENTER">
+        </ColumnConstraints>
+        <ColumnConstraints minWidth="150" prefWidth="150"
+                           maxWidth="Infinity" halignment="CENTER">
+        </ColumnConstraints>
+    </columnConstraints>
 
-      <Label
-             layoutX="152" layoutY="35"
-             prefHeight="90" prefWidth="300"
-             text="Play"
-             GridPane.columnIndex="0" GridPane.rowIndex="0">
-         <GridPane.margin>
-            <Insets top="20" right="1" bottom="20" left="1"/>
-         </GridPane.margin>
-      </Label>
-<!--      <VBox GridPane.columnIndex="0" GridPane.rowIndex="1"-->
-<!--            GridPane.halignment="CENTER">-->
+    <Label fx:id="mainLabel" text="Pets name"
+            GridPane.columnIndex="0" GridPane.rowIndex="0"
+            GridPane.columnSpan="2" GridPane.rowSpan="1">
+        <GridPane.margin>
+            <Insets top="20" bottom="20"/>
+        </GridPane.margin>
+    </Label>
+    <Pane GridPane.columnIndex="0" GridPane.rowIndex="1"
+          GridPane.columnSpan="1" GridPane.rowSpan="4">
+        <Label fx:id="secondLabel" text="label"></Label>
+        <GridPane.margin>
+            <Insets left="20"/>
+        </GridPane.margin>
+    </Pane>
 
-<!--            <Button fx:id="playButton" text="Play Game"-->
-<!--                    mnemonicParsing="false"-->
-<!--                    GridPane.columnIndex="0" GridPane.rowIndex="2"-->
-<!--                    onAction="#">-->
-<!--            </Button>-->
+    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1"
+          GridPane.columnSpan="1" GridPane.rowSpan="4">
+<!--          onMouseClicked="#onClick">-->
 
-<!--         <GridPane.margin>-->
-<!--            <Insets top="20" right="100" bottom="20" left="100"/>-->
-<!--         </GridPane.margin>-->
-<!--      </VBox>-->
 
-   <stylesheets>
-      <URL value="@MainMenu.css" />
-   </stylesheets>
+        <Button fx:id="feedButton" text="feed"
+                mnemonicParsing="false"
+                onAction="#handleFeedButton">
+        </Button>
+        <Button fx:id="walkButton" text="walk"
+                mnemonicParsing="false"
+                onAction="#handleWalkButton">
+        </Button>
+        <Button fx:id="cleanButton" text="clean"
+                mnemonicParsing="false"
+                onAction="#handleCleanButton">
+        </Button>
+        <Button fx:id="menuButton" text="menu"
+                mnemonicParsing="false"
+                onAction="#handleMenuButton">
+            <VBox.margin>
+                <Insets top="20"/>
+            </VBox.margin>
+        </Button>
+
+<!--        <GridPane.margin>-->
+<!--            <Insets top="0" right="0" bottom="0" left="0"/>-->
+<!--        </GridPane.margin>-->
+    </VBox>
+
+    <stylesheets>
+        <URL value="@PlayGame.css" />
+    </stylesheets>
 
 </GridPane>

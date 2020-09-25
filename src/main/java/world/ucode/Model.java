@@ -1,22 +1,23 @@
 package world.ucode;
 
 public class Model {
-    private int hungry;
+    private int full;
     private int happy;
     private int clean;
     private int tired;
     private int maxLevel;
 
     public Model() {
+        maxLevel = 10;
         clean = tired = 0;
-        happy = hungry = maxLevel / 4;
+        happy = full = maxLevel / 4;
     }
 
     public void feed() {
-        hungry -= maxLevel / 2;
-        if (hungry < 0) {
-            hungry = 0;
-            // dies ?????
+        full += maxLevel / 4;
+        if (full > maxLevel) {
+            full = maxLevel;
+            // sick
         }
     }
 
@@ -38,33 +39,55 @@ public class Model {
     }
 
     public String getMood() {
-        if (tired >= 3 * maxLevel / 4) {
-            return "asleep";
-        } else if (tired >= 2 * maxLevel / 3) {
-            return "tired";
-        } else if (hungry >= 2 * maxLevel / 3) {
-            return "hungry";
-        } else if (clean >= maxLevel / 3) {
-            return "dirty";
-        } else if (happy >= 2 * maxLevel / 3) {
-            return "happy";
+        String res = "";
+        if (tired == maxLevel) {
+            res += "asleep";
+        } else if (tired >= maxLevel * 2/3) {
+            res += "I'm tired...";
+        } else if (full <= maxLevel / 3) {
+            res += "I'm hungry! Feed me!";
+        } else if (full == -1) {
+            res += "I'm DEAD...";
+        } else if (clean >= maxLevel * 2/3) {
+            res += "I'm dirty! Clean me!";
+        } else if (happy >= maxLevel  * 2/3) {
+            res += "I'm happy, love you)";
         } else if (happy >= maxLevel / 3) {
-            return "ok";
+            res += "I'm ok.";
         } else {
-            return "sad";
+            res += "I'm sad(( walk with me...";
         }
+        return res;
     }
 
     public void passTime() {
-        hungry++;
+        full--;
         clean++;
-        tired = (tired >= maxLevel) ? 0 : tired++;
-        happy = (hungry >= 2 * maxLevel / 3) ? happy-- : happy;
-        happy = (clean >= 2 * maxLevel / 3) ? happy-- : happy;
+        tired++;
+
+        if (full <= maxLevel / 3) {
+            happy--;
+        }
+        if (clean >= maxLevel * 2/3) {
+            happy--;
+        }
 
         happy = happy < 0 ? 0 : happy;
         tired = tired >= maxLevel ? maxLevel : tired;
-        hungry = hungry >= maxLevel ? maxLevel : hungry;
         clean = clean >= maxLevel ? maxLevel : clean;
+
+        /** dies */
+        full = full < 0 ? -1 : full;
+    }
+
+    public void getAll() {
+        System.out.println("ситий="+full+", щастя="+happy+", чистота="+clean+", втома="+tired+";");
+    }
+
+    public boolean isSleep() {
+        if (tired == 10) {
+            return true;
+        }
+        return false;
     }
 }

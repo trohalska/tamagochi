@@ -7,11 +7,11 @@ Label {
     -fx-font-family: "Verdana";
     -fx-font-size: 40px;
 
-    -fx-pref-width: 250px;
+    -fx-pref-width: 600px;
     -fx-pref-height: 60px;
     /*-fx-padding: 20;*/
 
-    -fx-text-alignment: CENTER;
+    -fx-alignment: CENTER;
 }
 /*Button {*/
 /*    !*-fx-background-color: transparent;*!*/

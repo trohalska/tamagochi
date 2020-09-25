@@ -13,7 +13,7 @@ public class Tamagochi extends Application {
         primaryStage.setTitle("Tamagochi");
 //        primaryStage.setResizable(false);
 //        primaryStage.centerOnScreen();
-        (new MainMenuScene()).setScene(primaryStage);
+        (new MainMenuScene()).setScene();
         primaryStage.show();
     }
     public static Stage getPrimaryStage() {

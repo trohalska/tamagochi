@@ -25,18 +25,18 @@ public class MainMenuController {
     @FXML
     public void handlePlayButtonAction(ActionEvent event) {
         try {
-            Stage s = Tamagochi.getPrimaryStage();
-//            Window s = playButton.getScene().getWindow();
-//            Scene scene = playButton.getScene();
+//            FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource("/world/ucode/PlayGame.fxml"));
+//            Scene scene = new Scene(fxmlLoad.load());
+//
+//            Stage s = Tamagochi.getPrimaryStage();
+//            s.setScene(scene);
 
-            FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource("/world/ucode/PlayGame.fxml"));
-            Scene scene = new Scene(fxmlLoad.load());
-            s.setScene(scene);
-
+            (new PlayGameScene()).setScene();
 
             System.out.println("play");
         }
         catch (Exception e) {
+            e.printStackTrace();
             System.out.println("mainMenuController error");
         }
     }
