@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?imposr world.ucode.controls.MainMenuController?>
+
+<GridPane fx:id="gridPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="world.ucode.controls.PlayGameController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" maxWidth="Infinity" minWidth="400" prefWidth="400">
+        </ColumnConstraints>
+        <ColumnConstraints halignment="CENTER" maxWidth="Infinity" minWidth="200" prefWidth="200">
+        </ColumnConstraints>
+    </columnConstraints>
+
+    <Label fx:id="mainLabel" text="Pets name" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="1">
+        <GridPane.margin><Insets bottom="20" top="20" /></GridPane.margin>
+    </Label>
+   <Label fx:id="firstLabel" prefHeight="19.0" prefWidth="558.0" text="firstLabel" textFill="#0b05ae" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <font>
+         <Font size="15.0" />
+      </font>
+      <GridPane.margin>
+         <Insets bottom="5.0" top="5.0" />
+      </GridPane.margin>
+   </Label>
+    <Pane fx:id="playGamePane" GridPane.columnSpan="1" GridPane.rowIndex="2" GridPane.rowSpan="1">
+        <Label fx:id="secondLabel" layoutX="7.0" layoutY="9.0" prefHeight="27.0" prefWidth="366.0" text="secondLabel" />
+      <StackPane fx:id="imgPane" layoutX="13.0" layoutY="54.0" prefHeight="285.0" prefWidth="355.0">
+         <children>
+            <ImageView fx:id="imgView" fitHeight="209.0" fitWidth="269.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER" />
+         </children></StackPane>
+        <GridPane.margin>
+            <Insets left="20" />
+        </GridPane.margin>
+    </Pane>
+
+    <VBox fx:id="playGameVBox" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="2" GridPane.rowSpan="1">
+<!--          onMouseClicked="#onClick">-->
+
+        <Button fx:id="feedButton" mnemonicParsing="false" onAction="#handleFeedButton" text="feed">
+        </Button>
+        <Button fx:id="giveWaterButton" mnemonicParsing="false" onAction="#handleGiveWaterButton" text="give water">
+        </Button>
+        <Button fx:id="walkButton" mnemonicParsing="false" onAction="#handleWalkButton" text="play">
+        </Button>
+        <Button fx:id="petButton" mnemonicParsing="false" onAction="#handlePetButton" text="pet">
+        </Button>
+        <Button fx:id="cleanButton" mnemonicParsing="false" onAction="#handleCleanButton" text="clean up">
+        </Button>
+        <Button fx:id="giveMedButton" mnemonicParsing="false" onAction="#handleGiveMedButton" text="give medicine">
+        </Button>
+        <Button fx:id="menuButton" mnemonicParsing="false" onAction="#handleMenuButton" text="menu">
+            <VBox.margin>
+                <Insets top="20" />
+            </VBox.margin>
+        </Button>
+    </VBox>
+     <Label fx:id="vitalsLabel" alignment="TOP_LEFT" prefHeight="107.0" prefWidth="159.0" text="vitalsLabel" GridPane.columnIndex="1" GridPane.rowSpan="2" />
+
+    <stylesheets>
+        <URL value="@Game.css" />
+    </stylesheets>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+
+</GridPane>

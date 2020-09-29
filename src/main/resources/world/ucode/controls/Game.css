@@ -1,56 +1,44 @@
 GridPane {
-    -fx-background-color: #8f6cb8;
+    -fx-background-color: #a795c1;
     -fx-pref-width: 600px;
     -fx-pref-height: 500px;
 }
 #mainLabel {
     -fx-font-family: "Verdana";
     -fx-font-size: 40px;
-    -fx-pref-width: 600px;
-    -fx-pref-height: 60px;
     -fx-alignment: CENTER;
 }
-
-Pane {
+#secondLabel {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 15px;
+    -fx-text-fill: #670101;
+    -fx-alignment: CENTER;
+}
+#vitalsLabel {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 12;
+    -fx-padding: 10;
+}
+#playGamePane {
     -fx-pref-width: 420px;
     -fx-pref-height: 350px;
-    -fx-alignment: CENTER;
     -fx-background-color: white;
     -fx-background-radius: 6;
 
     -fx-border-style: solid;
     -fx-border-width: 2;
-    /*-fx-border-insets: 5;*/
     -fx-border-radius: 5;
     -fx-border-color: black;
 }
-
-#secondLabel {
-    -fx-font-family: "Verdana";
-    -fx-font-size: 15px;
-    -fx-text-fill: #5c1388;
-    -fx-alignment: CENTER;
-    -fx-text-alignment: CENTER;
-
-    -fx-pref-width: 420px;
-    -fx-pref-height: 40px;
-}
-
-VBox {
-    -fx-text-alignment: CENTER;
-    -fx-max-width: 100px;
-    -fx-max-height: 350px;
-
+#menuVBox,
+#newGameBox {
     -fx-spacing: 20;
-    /*-fx-padding: 20;*/
-
-    /*-fx-border-style: solid;*/
-    /*-fx-border-width: 2;*/
-    /*-fx-border-insets: 5;*/
-    /*-fx-border-radius: 5;*/
-    /*-fx-border-color: red;*/
 }
-
+#playGameVBox {
+    -fx-max-width: 160px;
+    -fx-max-height: 350px;
+    -fx-spacing: 10;
+}
 Button {
     /*-fx-background-color:*/
     /*        #3f4c66,*/
@@ -65,16 +53,11 @@ Button {
     /*-fx-text-fill: linear-gradient(black, #d0d0d0);*/
     -fx-font-size: 15px;
     -fx-padding: 10 20 10 20;
-    -fx-pref-width: 150px;
-
-    /*-fx-border-width: 2;*/
-    /*-fx-border-insets: 5;*/
-    /*-fx-border-radius: 5;*/
-    /*-fx-border-color: red;*/
+    -fx-pref-width: 160px;
 }
 
 #menuButton {
-    -fx-text-fill: red;
+    -fx-text-fill: #522a85;
 }
 
 

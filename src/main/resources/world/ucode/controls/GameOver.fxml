@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?imposr world.ucode.controls.MainMenuController?>
+
+<GridPane alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="world.ucode.controls.NewGameController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" maxWidth="Infinity" minWidth="600" prefWidth="600">
+        </ColumnConstraints>
+    </columnConstraints>
+
+    <Label fx:id="mainLabel" text="GAME OVER" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <GridPane.margin>
+            <Insets bottom="20" left="1" right="1" top="20" />
+        </GridPane.margin>
+    </Label>
+   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="276.0" prefWidth="469.0" text="Unfortunately, your pet died...&#10;Next time try to take better care of him&#10;and everything will be fine!" textAlignment="CENTER" GridPane.rowIndex="1">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </Label>
+    <VBox alignment="CENTER" prefHeight="80.0" prefWidth="600.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+        <Button fx:id="menuButton" mnemonicParsing="false" onAction="#handleMenuButton" text="Menu" GridPane.columnIndex="0" GridPane.rowIndex="5">
+        </Button>
+      <padding>
+         <Insets bottom="20.0" top="20.0" />
+      </padding>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+    </VBox>
+
+    <stylesheets>
+        <URL value="@Game.css" />
+    </stylesheets>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints maxHeight="409.0" minHeight="22.0" prefHeight="328.0" />
+      <RowConstraints maxHeight="387.0" minHeight="0.0" prefHeight="81.0" />
+   </rowConstraints>
+
+</GridPane>

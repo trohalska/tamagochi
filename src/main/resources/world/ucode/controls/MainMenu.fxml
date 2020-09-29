@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?imposr world.ucode.controls.MainMenuController?>
+
+<GridPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="world.ucode.controls.MainMenuController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" maxWidth="Infinity" minWidth="600" prefWidth="600">
+        </ColumnConstraints>
+    </columnConstraints>
+
+    <Label fx:id="mainLabel" text="Tamagochi" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <GridPane.margin>
+            <Insets bottom="20" left="1" right="1" top="20" />
+        </GridPane.margin>
+    </Label>
+    <VBox fx:id="menuVBox" alignment="TOP_CENTER" prefHeight="216.0" prefWidth="150.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+
+        <Button fx:id="playButton" mnemonicParsing="false" onAction="#handleNewButtonAction" text="New Game" GridPane.columnIndex="0" GridPane.rowIndex="2">
+        </Button>
+        <Button fx:id="loadButton" mnemonicParsing="false" onAction="#handleLoadButtonAction" text="Load Game" GridPane.columnIndex="0" GridPane.rowIndex="3">
+        </Button>
+        <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#handleSettingsButtonAction" text="Settings" GridPane.columnIndex="0" GridPane.rowIndex="4">
+        </Button>
+        <Button fx:id="exitButton" mnemonicParsing="false" onAction="#handleExitButtonAction" text="Exit" GridPane.columnIndex="0" GridPane.rowIndex="5">
+        </Button>
+        <GridPane.margin>
+            <Insets bottom="20" left="100" right="100" top="20" />
+        </GridPane.margin>
+    </VBox>
+
+    <stylesheets>
+        <URL value="@Game.css" />
+    </stylesheets>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+
+</GridPane>
