@@ -5,16 +5,14 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import world.ucode.Animation;
+import world.ucode.Database;
 import world.ucode.Model;
 import world.ucode.scenes.NewScene;
 import world.ucode.utils.GetResource;
@@ -44,13 +42,16 @@ public class PlayGameController implements Initializable {
     public ImageView imgView;
     public GridPane gridPane;
 
-    private Model pet = new Model();
-    private Animation animation = new Animation();
+    private Model pet;
+    private Animation animation;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        pet = new Model();
+        animation = new Animation(bearImgPath, bearBasicSound);
+
         mainLabel.setText(pet.getName());
-        firstLabel.setText("< You have a new pet! >");
+        firstLabel.setText("Congrats! You have a new pet!");
         secondLabel.setText(pet.getMood());
         vitalsLabel.setText(pet.getVitals());
 
@@ -70,32 +71,37 @@ public class PlayGameController implements Initializable {
 
     @FXML
     public void handleFeedButton(ActionEvent event) {
-        animation.eat(imgView);
+//        animation.eat(imgView, pet.getMood());
         pet.feed();
         renewVitals();
     }
     @FXML
     public void handleGiveWaterButton(ActionEvent event) {
+//        animation.drink(imgView, pet.getMood());
         pet.giveWater();
         renewVitals();
     }
     @FXML
     public void handleWalkButton(ActionEvent event) {
+//        animation.play(imgView, pet.getMood());
         pet.walk();
         renewVitals();
     }
     @FXML
     public void handlePetButton(ActionEvent event) {
+//        animation.pet(imgView, pet.getMood());
         pet.pet();
         renewVitals();
     }
     @FXML
     public void handleCleanButton(ActionEvent event) {
+//        animation.clean(imgView, pet.getMood());
         pet.clean();
         renewVitals();
     }
     @FXML
     public void handleGiveMedButton(ActionEvent event) {
+//        animation.meds(imgView, pet.getMood());
         pet.giveMedicine();
         renewVitals();
     }
@@ -138,7 +144,10 @@ public class PlayGameController implements Initializable {
                     Duration.seconds(SleepTimeChangeVitals),
                     event -> {
                         if (pet.isSickToDeath()) {
-                            (new NewScene("GameOver.fxml")).setScene();
+                            pet.isAlive = false;
+                            IfDead();
+                        } else {
+                            pet.isSick = false;
                         }
                     }
             )
@@ -167,12 +176,22 @@ public class PlayGameController implements Initializable {
     }
     private void IfDead() {
         if (pet.isAlive == false) {
+            timeline.stop();
+            sleepTimeline.stop();
+            sickTimeline.stop();
+
+            animation.deadSound();
+
+            Database.updateDisactive();
+            // delete from DB
             (new NewScene("GameOver.fxml")).setScene();
         }
     }
 
     private void renewVitals() {
-        secondLabel.setText(pet.getMood());
+        String mood = pet.getMood();
+        secondLabel.setText(mood);
+        animation.outputReactionOnMood(imgView, mood);
         vitalsLabel.setText(pet.getVitals());
         IfAsleep();
         IfSick();

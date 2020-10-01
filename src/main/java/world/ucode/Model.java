@@ -7,6 +7,14 @@ import java.util.Random;
 import static world.ucode.GameGeometry.*;
 
 public class Model {
+    private Calculation calc;
+
+    public int id;
+    private String name;
+    private GameGeometry.CharacterType type;
+    private int max;
+
+    private int age;
     private int hunger;
     private int thirst;
     private int happiness;
@@ -16,47 +24,92 @@ public class Model {
     public boolean isAlive;
     public boolean isSick;
 
-    private int max;
-    private Calculation calc;
-
-    private String name;
-    private int age;
-    private GameGeometry.CharacterType type;
-
     public void setName(String name) {
         this.name = name;
     }
-    public void setType(CharacterType type) {
-        this.type = type;
+    public void setMax(int max) {
+        this.max = max;
     }
+    public void setAge(int age) {
+        this.age = age;
+    }
+    public void setHunger(int hunger) {
+        this.hunger = hunger;
+    }
+    public void setThirst(int thirst) {
+        this.thirst = thirst;
+    }
+    public void setHappiness(int happiness) {
+        this.happiness = happiness;
+    }
+    public void setCleanliness(int cleanliness) {
+        this.cleanliness = cleanliness;
+    }
+    public void setTired(int tired) {
+        this.tired = tired;
+    }
+    public void setHealth(int health) {
+        this.health = health;
+    }
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+    public void setSick(boolean sick) {
+        isSick = sick;
+    }
+    public void setType(int type) { this.type = GameGeometry.setType(type); }
+
     public String getName() {
         return name;
     }
+    public CharacterType getType() {
+        return type;
+    }
+    public int getMax() {
+        return max;
+    }
+    public int getHunger() {
+        return hunger;
+    }
+    public int getThirst() {
+        return thirst;
+    }
+    public int getHappiness() {
+        return happiness;
+    }
+    public int getCleanliness() {
+        return cleanliness;
+    }
+    public int getTired() {
+        return tired;
+    }
+    public int getHealth() {
+        return health;
+    }
+    public int isAliveInt() {
+        return isAlive ? 1 : 0;
+    }
+    public int isSickInt() {
+        return isSick ? 1 : 0;
+    }
 
     public Model() {
-        this.max = maxVital;
         this.calc = new Calculation(maxVital);
-
-        isAlive = true;
-        isSick = false;
-        age = 0;
-
-        tired = 0;
-        happiness = hunger = thirst = calc.m2();
-        cleanliness = calc.m8();
-        health = calc.m();
+        Database.loadModel(this);
     }
 
     public void aging() { age++; }
     public int getAge() { return age; }
 
     private void checkVitals() {
-        if (hunger > max || hunger < 0) { health--; }
-        if (thirst > max || thirst < 0) { health--; }
-        if (cleanliness < 0)            { health--; }
+        if (hunger > max || hunger < 0) { health -= calc.m1();; }
+        if (thirst > max || thirst < 0) { health -= calc.m1(); }
+        if (cleanliness < 0)            { health -= calc.m1(); }
 
         if (health <= calc.m4()) {
             isSick = true;
+        } else if (health < 0) {
+            isAlive = false;
         }
 
         hunger = hunger > max ? max : (hunger = hunger < 0 ? 0 : hunger);
@@ -64,10 +117,13 @@ public class Model {
         happiness = happiness > max ? max : (happiness = happiness < 0 ? 0 : happiness);
         cleanliness = cleanliness > max ? max : (cleanliness < 0 ? 0 : cleanliness);
         tired = tired > max ? max : tired;
+        health = health > max ? max : health;
     }
 
     public void feed() {
         hunger -= calc.m2();
+        cleanliness -= calc.m2();
+        tired += calc.m1();
         checkVitals();
     }
     public void giveWater() {
@@ -80,6 +136,7 @@ public class Model {
         hunger += calc.m2();
         thirst += calc.m2();
         tired += calc.m2();
+        cleanliness -= calc.m2();
         checkVitals();
     }
 
@@ -106,7 +163,7 @@ public class Model {
         String res;
         if (tired == max) {
             res = "asleep, hrrrr...";
-        } else if (health <= calc.m4()) {
+        } else if (health <= calc.m4() || isSick) {
             res = "I think, I'm sick ((";
         } else if (tired >= calc.m8()) {
             res = "I'm tired...";
@@ -121,7 +178,7 @@ public class Model {
         } else if (happiness >= calc.m4()) {
             res = "I'm ok.";
         } else {
-            res = "I'm sad(( play with me...";
+            res = "I'm unhappy, play with me...";
         }
         return res;
     }
@@ -134,13 +191,13 @@ public class Model {
         tired++;
 
         if (hunger >= calc.m7()) {
-            happiness--;
+            happiness -= calc.m1();
         }
         if (thirst >= calc.m7()) {
-            happiness--;
+            happiness -= calc.m1();
         }
         if (cleanliness <= calc.m3()) {
-            happiness--;
+            happiness -= calc.m1();
         }
         checkVitals();
     }
@@ -167,6 +224,6 @@ public class Model {
         return tired == max ? true : false;
     }
     public boolean isSickToDeath() {
-        return (isSick && tired >= calc.m7() && hunger >= calc.m7()) ? true : false;
+        return (isSick && tired >= calc.m8() && hunger >= calc.m7()) ? true : false;
     }
 }

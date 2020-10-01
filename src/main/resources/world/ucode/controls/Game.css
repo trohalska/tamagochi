@@ -12,23 +12,35 @@ GridPane {
     -fx-font-family: "Verdana";
     -fx-font-size: 15px;
     -fx-text-fill: #670101;
-    -fx-alignment: CENTER;
+    /*-fx-border-style: 2px solid black;*/
+    /*-fx-border-style: solid;*/
+    /*-fx-border-width: 2;*/
+    /*-fx-border-color: black;*/
 }
 #vitalsLabel {
     -fx-font-family: "Verdana";
     -fx-font-size: 12;
     -fx-padding: 10;
 }
-#playGamePane {
-    -fx-pref-width: 420px;
-    -fx-pref-height: 350px;
+#imgPane,
+#imgView{
     -fx-background-color: white;
-    -fx-background-radius: 6;
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    /*-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );*/
 
-    -fx-border-style: solid;
-    -fx-border-width: 2;
-    -fx-border-radius: 5;
-    -fx-border-color: black;
+}
+#playGamePane {
+    -fx-background-color: #a795c1;
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+
+    /*-fx-background-radius: 6;*/
+    /*-fx-border-style: solid;*/
+    /*-fx-border-width: 2;*/
+    /*-fx-border-radius: 5;*/
+    /*-fx-border-color: black;*/
 }
 #menuVBox,
 #newGameBox {

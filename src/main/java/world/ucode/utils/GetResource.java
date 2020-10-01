@@ -10,7 +10,10 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 
 //import static world.ucode.GameGeometry.imgPath;
 import static world.ucode.GameGeometry.scenePath;
@@ -30,19 +33,16 @@ public class GetResource {
             ex.printStackTrace();
         }
     }
-    public static void playMP3(String bip) {
-        try {
-//            String bip = "bip.mp3";
-            Media hit = new Media(new File(bip).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(hit);
-            mediaPlayer.play();
-        }
-        catch(Exception ex) {
-            System.out.println("Error with playing mp3.");
-            ex.printStackTrace();
-        }
-    }
-    public static void getImage(ImageView v, String str) {
-//        v.setImage(new Image(imgPath + str));
-    }
+//    public static void playMP3(String bip) {
+//        try {
+////            String bip = "bip.mp3";
+//            Media hit = new Media(new File(bip).toURI().toString());
+//            MediaPlayer mediaPlayer = new MediaPlayer(hit);
+//            mediaPlayer.play();
+//        }
+//        catch(Exception ex) {
+//            System.out.println("Error with playing mp3.");
+//            ex.printStackTrace();
+//        }
+//    }
 }

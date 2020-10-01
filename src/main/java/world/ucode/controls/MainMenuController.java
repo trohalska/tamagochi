@@ -17,7 +17,7 @@ public class MainMenuController {
 
     @FXML
     public void handleLoadButtonAction(ActionEvent event) {
-        System.out.println("load");
+        (new NewScene("LoadGame.fxml")).setScene();
     }
 
     @FXML

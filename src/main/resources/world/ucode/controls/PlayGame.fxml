@@ -22,10 +22,10 @@
         </ColumnConstraints>
     </columnConstraints>
 
-    <Label fx:id="mainLabel" text="Pets name" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="1">
+    <Label fx:id="mainLabel" text="Pets name" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="1">
         <GridPane.margin><Insets bottom="20" top="20" /></GridPane.margin>
     </Label>
-   <Label fx:id="firstLabel" prefHeight="19.0" prefWidth="558.0" text="firstLabel" textFill="#0b05ae" GridPane.columnSpan="2" GridPane.rowIndex="1">
+   <Label fx:id="firstLabel" prefHeight="19.0" prefWidth="379.0" text="firstLabel" textFill="#0b05ae" GridPane.halignment="RIGHT">
       <font>
          <Font size="15.0" />
       </font>
@@ -33,12 +33,16 @@
          <Insets bottom="5.0" top="5.0" />
       </GridPane.margin>
    </Label>
-    <Pane fx:id="playGamePane" GridPane.columnSpan="1" GridPane.rowIndex="2" GridPane.rowSpan="1">
-        <Label fx:id="secondLabel" layoutX="7.0" layoutY="9.0" prefHeight="27.0" prefWidth="366.0" text="secondLabel" />
-      <StackPane fx:id="imgPane" layoutX="13.0" layoutY="54.0" prefHeight="285.0" prefWidth="355.0">
+    <Pane fx:id="playGamePane" prefHeight="348.0" prefWidth="380.0" GridPane.columnSpan="1" GridPane.rowIndex="2" GridPane.rowSpan="1">
+        <Label fx:id="secondLabel" alignment="CENTER" contentDisplay="RIGHT" prefHeight="43.0" prefWidth="380.0" text="secondLabel" textAlignment="CENTER">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding></Label>
+      <StackPane fx:id="imgPane" layoutX="58.0" layoutY="64.0" prefHeight="244.0" prefWidth="264.0">
          <children>
-            <ImageView fx:id="imgView" fitHeight="209.0" fitWidth="269.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER" />
-         </children></StackPane>
+            <ImageView fx:id="imgView" fitHeight="262.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </StackPane>
         <GridPane.margin>
             <Insets left="20" />
         </GridPane.margin>
@@ -59,7 +63,7 @@
         </Button>
         <Button fx:id="giveMedButton" mnemonicParsing="false" onAction="#handleGiveMedButton" text="give medicine">
         </Button>
-        <Button fx:id="menuButton" mnemonicParsing="false" onAction="#handleMenuButton" text="menu">
+        <Button fx:id="menuButton" mnemonicParsing="false" onAction="#handleMenuButton" text="save / back">
             <VBox.margin>
                 <Insets top="20" />
             </VBox.margin>
