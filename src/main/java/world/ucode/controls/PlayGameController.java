@@ -13,14 +13,16 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import world.ucode.Animation;
 import world.ucode.Database;
+import world.ucode.GameGeometry;
 import world.ucode.Model;
 import world.ucode.scenes.NewScene;
-import world.ucode.utils.GetResource;
 
 import static world.ucode.GameGeometry.*;
 
-import java.io.File;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class PlayGameController implements Initializable {
@@ -42,31 +44,45 @@ public class PlayGameController implements Initializable {
     public ImageView imgView;
     public GridPane gridPane;
 
+    private Timeline passTimeline;
+    private Timeline ageTimeline;
+    private Timeline sleepTimeline;
+    private Timeline sickTimeline;
+
     private Model pet;
     private Animation animation;
+    private int difficulty;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         pet = new Model();
-        animation = new Animation(bearImgPath, bearBasicSound);
+        animation = new Animation(GameGeometry.setPetImgPath(pet.getType()),
+                                  GameGeometry.setPetBasicSound(pet.getType()));
+        setDifficulty(Database.getDifficultySettings());
 
         mainLabel.setText(pet.getName());
-        firstLabel.setText("Congrats! You have a new pet!");
-        secondLabel.setText(pet.getMood());
         vitalsLabel.setText(pet.getVitals());
 
-        timeline.setCycleCount(Timeline.INDEFINITE);
+        passTimeline = setPassTimeline();
+        ageTimeline = setAgeTimeline();
+        sleepTimeline = setSleepTimeline();
+        sickTimeline = setSickTimeline();
+
+        passTimeline.setCycleCount(Timeline.INDEFINITE);
         ageTimeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+
+        passTimeline.play();
         ageTimeline.play();
 
-        animation.born(imgView);
-//        imgView.setImage(new Image("/img/g.gif"));
-
-//        ImageView image = new ImageView(new Image(imgPath + "g.gif"));
-//        imgPane.getChildren().add(image);
-//        imgPane.setAlignment(image, Pos.BOTTOM_CENTER);
-
+        if (pet.getTime().equals("0")) {
+            firstLabel.setText("You have a new pet!");
+            secondLabel.setText("Hiiii! Now i'm yours ))");
+            animation.born(imgView);
+        } else {
+            timeManager(pet);
+            firstLabel.setText("Your pet is " + pet.getAge() + " years old!");
+            renewVitals();
+        }
     }
 
     @FXML
@@ -107,65 +123,76 @@ public class PlayGameController implements Initializable {
     }
     @FXML
     public void handleMenuButton(ActionEvent event) {
+        stopAllActions();
+        Database.saveModel(pet);
         (new NewScene("MainMenu.fxml")).setScene();
     }
 
-    private Timeline timeline = new Timeline(
-            new KeyFrame(
-                    Duration.seconds(PassTimeChangeVitals),
-                    event -> {
-                        pet.passTime();
-                        renewVitals();
-                    }
-            )
-    );
-    private Timeline ageTimeline = new Timeline(
-            new KeyFrame(
-                    Duration.seconds(AgingTime),
-                    event -> {
-                        pet.aging();
-                        firstLabel.setText("Congrats! Your pet is now " + pet.getAge() + " years old!");
-                    }
-            )
-    );
-    private Timeline sleepTimeline = new Timeline(
-            new KeyFrame(
-                    Duration.seconds(SleepTimeChangeVitals),
-                    event -> {
-                        pet.sleepTime();
-                        renewVitals();
-                        ButtonsOn();
-                        timeline.play();
-                    }
-            )
-    );
-    private Timeline sickTimeline = new Timeline(
-            new KeyFrame(
-                    Duration.seconds(SleepTimeChangeVitals),
-                    event -> {
-                        if (pet.isSickToDeath()) {
-                            pet.isAlive = false;
-                            IfDead();
-                        } else {
-                            pet.isSick = false;
+    private void setDifficulty(String diffSettings) {
+        if (diffSettings.equals("Easy")) {
+            difficulty = 1;
+        } else if (diffSettings.equals("Normal")) {
+            difficulty = 2;
+        } else {
+            difficulty = 3;
+        }
+    }
+
+    private Timeline setPassTimeline() {
+        return new Timeline(
+                new KeyFrame(
+                        Duration.seconds(PassTimeChangeVitals / difficulty),
+                        event -> {
+                            pet.passTime();
+                            renewVitals();
                         }
-                    }
-            )
-    );
-//    private Timeline NewPet = new Timeline(
-//        new KeyFrame(
-//            Duration.seconds(timeDur),
-//            event -> {
-//                secondLabel.setText(pet.getMood());
-//                timeline.play();
-//            }
-//        )
-//    );
+                )
+        );
+    }
+    private Timeline setAgeTimeline() {
+        return new Timeline(
+                new KeyFrame(
+                        Duration.seconds(AgingTime / difficulty),
+                        event -> {
+                            pet.aging();
+                            firstLabel.setText("Your pet is " + pet.getAge() + " years old!");
+                        }
+                )
+        );
+    }
+    private Timeline setSleepTimeline() {
+        return new Timeline(
+                new KeyFrame(
+                        Duration.seconds(SleepTimeChangeVitals / difficulty),
+                        event -> {
+                            pet.sleepTime();
+                            renewVitals();
+                            ButtonsOn();
+                            passTimeline.play();
+                        }
+                )
+        );
+    }
+    private Timeline setSickTimeline() {
+        return new Timeline(
+                new KeyFrame(
+                        Duration.seconds(SleepTimeChangeVitals / difficulty),
+                        event -> {
+                            if (pet.isSickToDeath()) {
+                                pet.isAlive = false;
+                                IfDead();
+                            } else {
+                                pet.isSick = false;
+                            }
+                        }
+                )
+        );
+    }
 
     private void IfAsleep() {
         if (pet.isSleep()) {
             ButtonsOff();
-            timeline.stop();
+            passTimeline.stop();
             sleepTimeline.play();
         }
     }
@@ -176,26 +203,28 @@ public class PlayGameController implements Initializable {
     }
     private void IfDead() {
         if (pet.isAlive == false) {
-            timeline.stop();
-            sleepTimeline.stop();
-            sickTimeline.stop();
-
+            stopAllActions();
             animation.deadSound();
-
-            Database.updateDisactive();
-            // delete from DB
+            Database.deleteModel(pet.id);
             (new NewScene("GameOver.fxml")).setScene();
         }
     }
 
     private void renewVitals() {
+        IfDead();
+        IfSick();
+        IfAsleep();
         String mood = pet.getMood();
         secondLabel.setText(mood);
         animation.outputReactionOnMood(imgView, mood);
         vitalsLabel.setText(pet.getVitals());
-        IfAsleep();
-        IfSick();
-        IfDead();
+    }
+
+    private void stopAllActions() {
+        passTimeline.stop();
+        ageTimeline.stop();
+        sleepTimeline.stop();
+        sickTimeline.stop();
     }
 
     private void ButtonsOff() {
@@ -213,5 +242,22 @@ public class PlayGameController implements Initializable {
         petButton.setDisable(false);
         cleanButton.setDisable(false);
         giveMedButton.setDisable(false);
+    }
+
+    private void timeManager(Model pet) {
+        SimpleDateFormat formatter = new SimpleDateFormat("y-M-d h:m:s");
+
+        try {
+            Date d = formatter.parse(pet.getTime());
+            float timeDiff = (System.currentTimeMillis() - d.getTime()) / 1000F;
+//            System.out.println(timeDiff + " seconds");
+            int counter = (int)timeDiff / (PassTimeChangeVitals / difficulty);
+            while (counter > 0) {
+                pet.passTime();
+                counter--;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

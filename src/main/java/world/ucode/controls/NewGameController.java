@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import world.ucode.Database;
-import world.ucode.GameGeometry;
 import world.ucode.scenes.NewScene;
 
 public class NewGameController{
@@ -19,10 +18,7 @@ public class NewGameController{
 
     @FXML
     public void handlePlayButton(ActionEvent event) {
-        String name = petNameBox.getText();
-        int type = GameGeometry.getTypeStr((String)petTypeBox.getValue());
-
-        Database.insertNewDB(name, type, 10);
+        Database.insertNewDB(petNameBox.getText(), (String)petTypeBox.getValue(), 10);
         (new NewScene("PlayGame.fxml")).setScene();
     }
 

@@ -8,11 +8,11 @@ import javafx.util.Duration;
 import world.ucode.utils.GetResource;
 import java.net.URL;
 
-import static world.ucode.GameGeometry.timeDur;
-
 public class Animation {
     private String imgPath;
     private String basicSound;
+    private String soundSettings;
+
 
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
@@ -24,24 +24,37 @@ public class Animation {
     public Animation(String imgPath, String basicSound) {
         setImgPath(imgPath);
         setBasicSound(basicSound);
+        soundSettings = Database.getSoundSettings();
     }
 
-    public URL getUrl(String s) {
-        return this.getClass().getClassLoader().getResource(s);
+    private void playSound(String sound) {
+        if (soundSettings.equals("ON")) {
+            URL url = this.getClass().getClassLoader().getResource(sound);
+            GetResource.playSound(url);
+        }
+    }
+
+    private void setImg(ImageView v, String img) {
+        v.setImage(new Image(img));
+        v.setFitHeight(250);
+        v.setPreserveRatio(true);
+        v.setSmooth(true);
+        v.setCache(true);
     }
 
     private void output(ImageView v, String img, String sound) {
-        v.setImage(new Image(img));
+//        v.setImage(new Image(img));
+        setImg(v, img);
         if (sound != null)
-            GetResource.playSound(getUrl(sound));
+            playSound(sound);
     }
 
     private void outputLong(ImageView v, String img, String sound) {
-
-        v.setImage(new Image(img));
+//        v.setImage(new Image(img));
+        setImg(v, img);
         Timeline time = new Timeline(
                 new KeyFrame( Duration.seconds(2), event -> {
-                    GetResource.playSound(getUrl(sound));
+                    playSound(sound);
                 } )
         );
         time.setCycleCount(5);
@@ -50,20 +63,20 @@ public class Animation {
     private void soundTimeout(String sound, int delay, int cycle) {
         Timeline time = new Timeline(
                 new KeyFrame( Duration.seconds(delay), event -> {
-                    GetResource.playSound(getUrl(sound));
+                    playSound(sound);
                 } )
         );
         time.setCycleCount(cycle);
         time.play();
     }
     /**
-     * temporary phisical actions
+     * temporary physical actions
      * */
     public void born(ImageView v) {
         output(v, imgPath+"born.gif", "sounds/heartbeat.wav");
     }
     public void deadSound() {
-        GetResource.playSound(getUrl("sounds/dubbio.wav"));
+        playSound("sounds/dubbio.wav");
     }
     public void eat(ImageView v, String mood) {
         output(v, imgPath+"eat4.gif", basicSound);
@@ -95,11 +108,6 @@ public class Animation {
      * */
     public void outputReactionOnMood(ImageView v, String mood) {
         reactionOnGetMood(v, mood);
-//        (new Timeline(
-//                new KeyFrame( Duration.seconds(3), event -> {
-//                    reactionOnGetMood(v, mood);
-//                } )
-//        )).play();
     }
     public void reactionOnGetMood(ImageView v, String mood) {
         if (mood.contains("asleep")) {

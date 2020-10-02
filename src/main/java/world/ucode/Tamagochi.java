@@ -4,8 +4,6 @@ import javafx.stage.Stage;
 import javafx.application.Application;
 import world.ucode.scenes.NewScene;
 
-import java.sql.SQLException;
-
 public class Tamagochi extends Application {
     public static Stage stage;
 
@@ -24,6 +22,4 @@ public class Tamagochi extends Application {
         Database.createNewDB();
         launch(args);
     }
-
-
 }

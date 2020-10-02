@@ -8,6 +8,11 @@ GridPane {
     -fx-font-size: 40px;
     -fx-alignment: CENTER;
 }
+#firstLabel {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 15px;
+    -fx-text-fill: #16213e;
+}
 #secondLabel {
     -fx-font-family: "Verdana";
     -fx-font-size: 15px;
@@ -66,10 +71,6 @@ Button {
     -fx-font-size: 15px;
     -fx-padding: 10 20 10 20;
     -fx-pref-width: 160px;
-}
-
-#menuButton {
-    -fx-text-fill: #522a85;
 }
 
 

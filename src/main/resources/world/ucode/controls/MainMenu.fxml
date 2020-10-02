@@ -36,9 +36,6 @@
         </GridPane.margin>
     </VBox>
 
-    <stylesheets>
-        <URL value="@Game.css" />
-    </stylesheets>
    <rowConstraints>
       <RowConstraints />
       <RowConstraints />

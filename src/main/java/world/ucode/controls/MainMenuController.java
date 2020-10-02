@@ -22,7 +22,7 @@ public class MainMenuController {
 
     @FXML
     public void handleSettingsButtonAction(ActionEvent event) {
-        System.out.println("settings");
+        (new NewScene("Settings.fxml")).setScene();
     }
 
     @FXML

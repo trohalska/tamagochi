@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?imposr world.ucode.controls.MainMenuController?>
+
+<GridPane prefHeight="440.0" prefWidth="547.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="world.ucode.controls.SettingsController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" maxWidth="Infinity" minWidth="600" prefWidth="600">
+        </ColumnConstraints>
+    </columnConstraints>
+
+    <Label fx:id="mainLabel" text="Settings" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <GridPane.margin>
+            <Insets bottom="20" left="1" right="1" top="20" />
+        </GridPane.margin>
+    </Label>
+   <HBox fx:id="Box1" alignment="TOP_CENTER" prefHeight="90.0" prefWidth="600.0" GridPane.rowIndex="1">
+      <children>
+         <Label prefHeight="28.0" text="Sounds:">
+            <HBox.margin>
+               <Insets right="20.0" />
+            </HBox.margin>
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <ChoiceBox fx:id="soundSettings" opacity="0.8" prefHeight="27.0" prefWidth="228.0">
+            <items>
+               <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="ON" />
+                  <String fx:value="OFF" />
+               </FXCollections>
+            </items>
+         </ChoiceBox>
+        </children>
+      <padding>
+         <Insets bottom="20.0" top="20.0" />
+      </padding>
+    </HBox>
+   <HBox fx:id="Box11" alignment="TOP_CENTER" prefHeight="90.0" prefWidth="600.0" GridPane.rowIndex="2">
+      <children>
+         <Label prefHeight="28.0" text="Sounds:">
+            <HBox.margin>
+               <Insets right="20.0" />
+            </HBox.margin>
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <ChoiceBox fx:id="themeSettings" opacity="0.8" prefHeight="27.0" prefWidth="228.0">
+            <items>
+               <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Standart" />
+                  <String fx:value="Dark" />
+               </FXCollections>
+            </items>
+         </ChoiceBox>
+      </children>
+      <padding>
+         <Insets bottom="20.0" top="20.0" />
+      </padding>
+   </HBox>
+    <HBox fx:id="Box2" alignment="TOP_CENTER" prefHeight="90.0" prefWidth="600.0" GridPane.rowIndex="3">
+      <children>
+          <Label prefHeight="28.0" text="Difficulty:">
+            <HBox.margin>
+               <Insets right="20.0" />
+            </HBox.margin>
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <ChoiceBox fx:id="difficultySettings" opacity="0.8" prefHeight="27.0" prefWidth="228.0">
+            <items>
+               <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Easy" />
+                  <String fx:value="Normal" />
+                   <String fx:value="Hard" />
+               </FXCollections>
+            </items>
+         </ChoiceBox>
+      </children>
+      <padding>
+         <Insets bottom="20.0" top="20.0" />
+      </padding>
+   </HBox>
+   <VBox fx:id="menuVBox" alignment="TOP_CENTER" prefHeight="147.0" prefWidth="600.0" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+      <children>
+         <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveButton" text="Save" />
+         <Button fx:id="menuButton" mnemonicParsing="false" onAction="#handleMenuButton" text="Back" />
+      </children>
+      <GridPane.margin>
+         <Insets bottom="20.0" top="20.0" />
+      </GridPane.margin>
+   </VBox>
+
+<!--    <stylesheets>-->
+<!--        <URL value="@Game.css" />-->
+<!--    </stylesheets>-->
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+
+</GridPane>

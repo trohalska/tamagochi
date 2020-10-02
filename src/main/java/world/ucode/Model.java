@@ -11,7 +11,8 @@ public class Model {
 
     public int id;
     private String name;
-    private GameGeometry.CharacterType type;
+    private String type;
+    private String time;
     private int max;
 
     private int age;
@@ -26,6 +27,10 @@ public class Model {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public void setType(String type) { this.type = type; }
+    public void setTime(String time) {
+        this.time = time;
     }
     public void setMax(int max) {
         this.max = max;
@@ -57,13 +62,15 @@ public class Model {
     public void setSick(boolean sick) {
         isSick = sick;
     }
-    public void setType(int type) { this.type = GameGeometry.setType(type); }
 
     public String getName() {
         return name;
     }
-    public CharacterType getType() {
+    public String getType() {
         return type;
+    }
+    public String getTime() {
+        return time;
     }
     public int getMax() {
         return max;
@@ -86,10 +93,10 @@ public class Model {
     public int getHealth() {
         return health;
     }
-    public int isAliveInt() {
+    public int getAliveInt() {
         return isAlive ? 1 : 0;
     }
-    public int isSickInt() {
+    public int getSickInt() {
         return isSick ? 1 : 0;
     }
 
@@ -108,8 +115,6 @@ public class Model {
 
         if (health <= calc.m4()) {
             isSick = true;
-        } else if (health < 0) {
-            isAlive = false;
         }
 
         hunger = hunger > max ? max : (hunger = hunger < 0 ? 0 : hunger);
@@ -118,6 +123,10 @@ public class Model {
         cleanliness = cleanliness > max ? max : (cleanliness < 0 ? 0 : cleanliness);
         tired = tired > max ? max : tired;
         health = health > max ? max : health;
+        if (health < 0) {
+            health = 0;
+            isAlive = false;
+        }
     }
 
     public void feed() {
@@ -151,7 +160,7 @@ public class Model {
     }
 
     public void giveMedicine() {
-        if (health >= calc.m8()) {
+        if (health >= maxVital) {
             isAlive = false;
         } else if ((new Random()).nextBoolean()) {
             health += calc.m5();

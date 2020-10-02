@@ -40,7 +40,7 @@
          </padding></Label>
       <StackPane fx:id="imgPane" layoutX="58.0" layoutY="64.0" prefHeight="244.0" prefWidth="264.0">
          <children>
-            <ImageView fx:id="imgView" fitHeight="262.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgView" fitHeight="260.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </StackPane>
         <GridPane.margin>
@@ -71,9 +71,9 @@
     </VBox>
      <Label fx:id="vitalsLabel" alignment="TOP_LEFT" prefHeight="107.0" prefWidth="159.0" text="vitalsLabel" GridPane.columnIndex="1" GridPane.rowSpan="2" />
 
-    <stylesheets>
-        <URL value="@Game.css" />
-    </stylesheets>
+<!--    <stylesheets>-->
+<!--        <URL value="@Dark.css" />-->
+<!--    </stylesheets>-->
    <rowConstraints>
       <RowConstraints />
       <RowConstraints />

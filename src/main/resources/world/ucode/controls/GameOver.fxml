@@ -38,9 +38,6 @@
       </opaqueInsets>
     </VBox>
 
-    <stylesheets>
-        <URL value="@Game.css" />
-    </stylesheets>
    <rowConstraints>
       <RowConstraints />
       <RowConstraints maxHeight="409.0" minHeight="22.0" prefHeight="328.0" />
