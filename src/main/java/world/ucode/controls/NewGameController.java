@@ -1,6 +1,5 @@
 package world.ucode.controls;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -8,22 +7,30 @@ import javafx.scene.control.TextField;
 import world.ucode.Database;
 import world.ucode.scenes.NewScene;
 
-public class NewGameController{
+public class NewGameController {
 
     public TextField petNameBox;
-    public ChoiceBox petTypeBox;
+    public ChoiceBox<String> petTypeBox;
+    public TextField petHealthBox;
 
     public Button playButton;
     public Button menuButton;
 
     @FXML
-    public void handlePlayButton(ActionEvent event) {
-        Database.insertNewDB(petNameBox.getText(), (String)petTypeBox.getValue(), 10);
+    public void handlePlayButton() {
+        String health = petHealthBox.getText();
+        if (health.equals("")) {
+            health = "10";
+        }
+
+        Database.insertNewDB(petNameBox.getText(),
+                            petTypeBox.getValue(),
+                            Integer.parseInt(health));
         (new NewScene("PlayGame.fxml")).setScene();
     }
 
     @FXML
-    public void handleMenuButton(ActionEvent event) {
+    public void handleMenuButton() {
         (new NewScene("MainMenu.fxml")).setScene();
     }
 }

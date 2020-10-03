@@ -27,7 +27,7 @@
             <Insets bottom="20" left="1" right="1" top="20" />
         </GridPane.margin>
     </Label>
-   <HBox alignment="TOP_CENTER" focusTraversable="true" prefHeight="130.0" prefWidth="600.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+   <HBox alignment="TOP_CENTER" focusTraversable="true" prefWidth="600.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
       <children>
          <Label prefHeight="29.0" prefWidth="46.0" text="Name:">
             <font>
@@ -46,7 +46,7 @@
          <Insets bottom="20.0" top="20.0" />
       </padding>
    </HBox>
-   <HBox fx:id="newGameBox" alignment="TOP_CENTER" focusTraversable="true" minWidth="-Infinity" prefHeight="130.0" prefWidth="600.0" GridPane.rowIndex="2">
+   <HBox alignment="TOP_CENTER" focusTraversable="true" minWidth="-Infinity" prefWidth="600.0" GridPane.rowIndex="2">
       <children>
          <Label prefHeight="28.0" prefWidth="84.0" text="Pet type:">
             <font>
@@ -69,20 +69,40 @@
          <Insets bottom="20.0" top="20.0" />
       </padding>
    </HBox>
-   <VBox fx:id="menuVBox" alignment="TOP_CENTER" prefHeight="80.0" prefWidth="595.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+   <HBox alignment="TOP_CENTER" focusTraversable="true" prefWidth="600.0" GridPane.rowIndex="3">
+      <children>
+         <Label prefHeight="29.0" text="Health:">
+            <font>
+               <Font size="15.0" />
+            </font>
+            <HBox.margin>
+               <Insets right="20.0" />
+            </HBox.margin>
+         </Label>
+         <TextField fx:id="petHealthBox" opacity="0.8" promptText="pet's health" text="10" />
+      </children>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+      <padding>
+         <Insets bottom="20.0" top="20.0" />
+      </padding>
+   </HBox>
+   <VBox fx:id="menuVBox" alignment="BOTTOM_CENTER" prefHeight="269.0" prefWidth="596.0" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
       <children>
          <Button fx:id="playButton" mnemonicParsing="false" onAction="#handlePlayButton" text="Play" />
          <Button fx:id="menuButton" mnemonicParsing="false" onAction="#handleMenuButton" text="Back" />
       </children>
       <GridPane.margin>
-         <Insets bottom="20.0" top="20.0" />
+         <Insets bottom="40.0" top="20.0" />
       </GridPane.margin>
    </VBox>
 
 <!--   <stylesheets>-->
-<!--      <URL value="@Dark.css" />-->
+<!--      <URL value="@Game.css" />-->
 <!--   </stylesheets>-->
    <rowConstraints>
+      <RowConstraints />
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />

@@ -32,8 +32,5 @@ public class Calculation {
     }
     public int m9() {
         return max * 9/10;
-    }public int m() {
-        return max;
     }
-
 }

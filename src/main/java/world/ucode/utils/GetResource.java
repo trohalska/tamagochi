@@ -1,22 +1,9 @@
 package world.ucode.utils;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import world.ucode.Animation;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
-
-//import static world.ucode.GameGeometry.imgPath;
-import static world.ucode.GameGeometry.scenePath;
 
 public class GetResource {
     public static void playSound(URL url) {

@@ -4,7 +4,6 @@ public class GameGeometry {
 
     public static final String scenePath = "/world/ucode/controls/";
     public static final String userError = "user error";
-    public static final int maxVital = 10;
 
     /** choose animal */
     public static final String catImgPath = "/img/cat/";
@@ -13,16 +12,18 @@ public class GameGeometry {
     public static final String bearBasicSound = null;
 
     public static String setPetImgPath(String type) {
-        return(switch (type) {
-            case "Cat" -> catImgPath;
-            default -> bearImgPath;
-        });
+        if (type.equals("Cat")) {
+            return catImgPath;
+        } else {
+            return bearImgPath;
+        }
     }
     public static String setPetBasicSound(String type) {
-        return(switch (type) {
-            case "Cat" -> catBasicSound;
-            default -> bearBasicSound;
-        });
+        if (type.equals("Cat")) {
+            return catBasicSound;
+        } else {
+            return bearBasicSound;
+        }
     }
 
     /** TIMER to change vitals in seconds */

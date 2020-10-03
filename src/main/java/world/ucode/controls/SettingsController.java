@@ -1,6 +1,5 @@
 package world.ucode.controls;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,9 +12,9 @@ import java.util.ResourceBundle;
 
 public class SettingsController implements Initializable {
 
-    public ChoiceBox soundSettings;
-    public ChoiceBox themeSettings;
-    public ChoiceBox difficultySettings;
+    public ChoiceBox<String> soundSettings;
+    public ChoiceBox<String> themeSettings;
+    public ChoiceBox<String> difficultySettings;
 
     public Button saveButton;
     public Button menuButton;
@@ -28,16 +27,16 @@ public class SettingsController implements Initializable {
     }
 
     @FXML
-    public void handleSaveButton(ActionEvent event) {
-        String sound = (String)soundSettings.getValue();
-        String theme = (String)themeSettings.getValue();
-        String diff = (String)difficultySettings.getValue();
+    public void handleSaveButton() {
+        String sound = soundSettings.getValue();
+        String theme = themeSettings.getValue();
+        String diff = difficultySettings.getValue();
         Database.updateSettings(sound, theme, diff);
         (new NewScene("Settings.fxml")).setScene();
     }
 
     @FXML
-    public void handleMenuButton(ActionEvent event) {
+    public void handleMenuButton() {
         (new NewScene("MainMenu.fxml")).setScene();
     }
 }

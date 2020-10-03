@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
@@ -25,31 +24,37 @@
             <Insets bottom="20" left="1" right="1" top="20" />
         </GridPane.margin>
     </Label>
-   <HBox fx:id="newGameBox" alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="320.0" prefWidth="600.0" GridPane.rowIndex="2">
+   <HBox fx:id="newGameBox" alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="320.0" prefWidth="600.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
       <children>
-         <ChoiceBox fx:id="petTypeBox" opacity="0.8" prefHeight="27.0" prefWidth="228.0" value="Cat">
+         <ChoiceBox fx:id="petTypeBox" opacity="0.8" prefHeight="27.0" prefWidth="228.0">
             <items>
                <FXCollections fx:factory="observableArrayList">
 <!--                  <String fx:value="Cat" />-->
 <!--                  <String fx:value="Bear" />-->
                </FXCollections>
             </items>
+            <HBox.margin>
+               <Insets top="60.0" />
+            </HBox.margin>
          </ChoiceBox>
       </children>
       <padding>
          <Insets bottom="20.0" top="20.0" />
       </padding>
    </HBox>
-   <VBox fx:id="menuVBox" alignment="TOP_CENTER" prefHeight="80.0" prefWidth="595.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+   <VBox fx:id="menuVBox" alignment="BOTTOM_CENTER" prefHeight="80.0" prefWidth="595.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
       <children>
          <Button fx:id="playButton" mnemonicParsing="false" onAction="#handlePlayButton" text="Play" />
          <Button fx:id="menuButton" mnemonicParsing="false" onAction="#handleMenuButton" text="Back" />
       </children>
       <GridPane.margin>
-         <Insets bottom="20.0" top="20.0" />
+         <Insets bottom="40.0" top="20.0" />
       </GridPane.margin>
    </VBox>
 
+<!--   <stylesheets>-->
+<!--      <URL value="@Game.css" />-->
+<!--   </stylesheets>-->
    <rowConstraints>
       <RowConstraints />
       <RowConstraints />

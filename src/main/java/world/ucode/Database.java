@@ -26,8 +26,8 @@ public class Database {
             connect();
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
+                System.out.println("A new database has been created." +
+                        "The driver name is " + meta.getDriverName());
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -182,7 +182,6 @@ public class Database {
     }
 
     public static ArrayList<String> selectNames() {
-//        ObservableList<String> names = FXCollections.ObservableList<>();
         ArrayList<String> names = new ArrayList<>();
         String sql = "SELECT id,name FROM game;";
         try {
@@ -190,33 +189,12 @@ public class Database {
             rs = st.executeQuery(sql);
             while (rs.next()) {
                 names.add(rs.getInt("id") + ". " + rs.getString("Name"));
-//                System.out.println(rs.getInt("id") + ". " + rs.getString("Name"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
         return names;
-    }
-
-    // delete
-    public static void selectAll(){
-        String sql = "SELECT id, name, type FROM game";
-
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(sql);
-
-            // loop through the result set
-//            while (rs.next()) {
-//                System.out.println(rs.getInt("id") + "\t" +
-//                        rs.getString("name") + "\t" +
-//                        rs.getInt("type"));
-//            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
     }
 
     public static void CloseDB() throws SQLException {

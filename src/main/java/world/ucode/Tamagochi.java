@@ -9,7 +9,7 @@ public class Tamagochi extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        this.stage = primaryStage;
+        stage = primaryStage;
         primaryStage.setTitle("Tamagochi");
         (new NewScene("MainMenu.fxml")).setScene();
         primaryStage.show();

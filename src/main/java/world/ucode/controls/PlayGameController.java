@@ -2,7 +2,6 @@ package world.ucode.controls;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,6 +22,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class PlayGameController implements Initializable {
@@ -58,7 +58,7 @@ public class PlayGameController implements Initializable {
         pet = new Model();
         animation = new Animation(GameGeometry.setPetImgPath(pet.getType()),
                                   GameGeometry.setPetBasicSound(pet.getType()));
-        setDifficulty(Database.getDifficultySettings());
+        setDifficulty(Objects.requireNonNull(Database.getDifficultySettings()));
 
         mainLabel.setText(pet.getName());
         vitalsLabel.setText(pet.getVitals());
@@ -67,12 +67,7 @@ public class PlayGameController implements Initializable {
         ageTimeline = setAgeTimeline();
         sleepTimeline = setSleepTimeline();
         sickTimeline = setSickTimeline();
-
-        passTimeline.setCycleCount(Timeline.INDEFINITE);
-        ageTimeline.setCycleCount(Timeline.INDEFINITE);
-
-        passTimeline.play();
-        ageTimeline.play();
+        Timeline deadTimeline = setDeadTimeline();
 
         if (pet.getTime().equals("0")) {
             firstLabel.setText("You have a new pet!");
@@ -80,49 +75,57 @@ public class PlayGameController implements Initializable {
             animation.born(imgView);
         } else {
             timeManager(pet);
+            if (!pet.isAlive) {
+                deadTimeline.play();
+            }
             firstLabel.setText("Your pet is " + pet.getAge() + " years old!");
             renewVitals();
         }
+        passTimeline.setCycleCount(Timeline.INDEFINITE);
+        ageTimeline.setCycleCount(Timeline.INDEFINITE);
+
+        ageTimeline.play();
+        passTimeline.play();
     }
 
     @FXML
-    public void handleFeedButton(ActionEvent event) {
+    public void handleFeedButton() {
 //        animation.eat(imgView, pet.getMood());
         pet.feed();
         renewVitals();
     }
     @FXML
-    public void handleGiveWaterButton(ActionEvent event) {
+    public void handleGiveWaterButton() {
 //        animation.drink(imgView, pet.getMood());
         pet.giveWater();
         renewVitals();
     }
     @FXML
-    public void handleWalkButton(ActionEvent event) {
+    public void handleWalkButton() {
 //        animation.play(imgView, pet.getMood());
         pet.walk();
         renewVitals();
     }
     @FXML
-    public void handlePetButton(ActionEvent event) {
+    public void handlePetButton() {
 //        animation.pet(imgView, pet.getMood());
         pet.pet();
         renewVitals();
     }
     @FXML
-    public void handleCleanButton(ActionEvent event) {
+    public void handleCleanButton() {
 //        animation.clean(imgView, pet.getMood());
         pet.clean();
         renewVitals();
     }
     @FXML
-    public void handleGiveMedButton(ActionEvent event) {
+    public void handleGiveMedButton() {
 //        animation.meds(imgView, pet.getMood());
         pet.giveMedicine();
         renewVitals();
     }
     @FXML
-    public void handleMenuButton(ActionEvent event) {
+    public void handleMenuButton() {
         stopAllActions();
         Database.saveModel(pet);
         (new NewScene("MainMenu.fxml")).setScene();
@@ -188,6 +191,17 @@ public class PlayGameController implements Initializable {
                 )
         );
     }
+    private Timeline setDeadTimeline() {
+        return new Timeline(
+                new KeyFrame(
+                        Duration.seconds(5),
+                        event -> {
+                            animation.deadSound();
+                            (new NewScene("GameOver.fxml")).setScene();
+                        }
+                )
+        );
+    }
 
     private void IfAsleep() {
         if (pet.isSleep()) {
@@ -202,7 +216,7 @@ public class PlayGameController implements Initializable {
         }
     }
     private void IfDead() {
-        if (pet.isAlive == false) {
+        if (!pet.isAlive) {
             stopAllActions();
             animation.deadSound();
             Database.deleteModel(pet.id);
@@ -250,9 +264,8 @@ public class PlayGameController implements Initializable {
         try {
             Date d = formatter.parse(pet.getTime());
             float timeDiff = (System.currentTimeMillis() - d.getTime()) / 1000F;
-//            System.out.println(timeDiff + " seconds");
             int counter = (int)timeDiff / (PassTimeChangeVitals / difficulty);
-            while (counter > 0) {
+            while (counter > 0 && pet.isAlive) {
                 pet.passTime();
                 counter--;
             }

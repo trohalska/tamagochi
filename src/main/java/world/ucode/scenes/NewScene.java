@@ -5,26 +5,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import world.ucode.Database;
 
+import java.util.Objects;
+
 import static world.ucode.GameGeometry.*;
 
 public class NewScene extends AbstractScene {
-    private Parent root;
-    private FXMLLoader fxmlLoad;
-    private String path = scenePath;
-
-    private String theme;
-    private String css = scenePath;
 
     public NewScene(String str) {
-        if (Database.getThemeSettings().equals("Standart")) {
+        String css = scenePath;
+        if (Objects.equals(Database.getThemeSettings(), "Standart")) {
             css += "Game.css";
         } else {
             css += "Dark.css";
         }
-        theme = getClass().getResource(css).toExternalForm();
+        String theme = getClass().getResource(css).toExternalForm();
         try {
-            fxmlLoad = new FXMLLoader(getClass().getResource(path + str));
-            root = fxmlLoad.load();
+            FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource(scenePath + str));
+            Parent root = fxmlLoad.load();
             this.scene = new Scene(root);
             this.scene.getStylesheets().add(theme);
         }

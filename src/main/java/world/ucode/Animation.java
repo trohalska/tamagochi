@@ -11,7 +11,7 @@ import java.net.URL;
 public class Animation {
     private String imgPath;
     private String basicSound;
-    private String soundSettings;
+    private final String soundSettings;
 
 
     public void setImgPath(String imgPath) {
@@ -43,28 +43,22 @@ public class Animation {
     }
 
     private void output(ImageView v, String img, String sound) {
-//        v.setImage(new Image(img));
         setImg(v, img);
         if (sound != null)
             playSound(sound);
     }
 
     private void outputLong(ImageView v, String img, String sound) {
-//        v.setImage(new Image(img));
         setImg(v, img);
         Timeline time = new Timeline(
-                new KeyFrame( Duration.seconds(2), event -> {
-                    playSound(sound);
-                } )
+                new KeyFrame( Duration.seconds(2), event -> playSound(sound))
         );
-        time.setCycleCount(5);
+        time.setCycleCount(3);
         time.play();
     }
     private void soundTimeout(String sound, int delay, int cycle) {
         Timeline time = new Timeline(
-                new KeyFrame( Duration.seconds(delay), event -> {
-                    playSound(sound);
-                } )
+                new KeyFrame( Duration.seconds(delay), event -> playSound(sound))
         );
         time.setCycleCount(cycle);
         time.play();
@@ -78,30 +72,30 @@ public class Animation {
     public void deadSound() {
         playSound("sounds/dubbio.wav");
     }
-    public void eat(ImageView v, String mood) {
-        output(v, imgPath+"eat4.gif", basicSound);
-//        outputReactionOnMood(v, mood);
-    }
-    public void drink(ImageView v, String mood) {
-        output(v, imgPath+"eat3.gif", basicSound);
-//        outputReactionOnMood(v, mood);
-    }
-    public void play(ImageView v, String mood) {
-        output(v, imgPath+"play.gif", basicSound);
-//        outputReactionOnMood(v, mood);
-    }
-    public void pet(ImageView v, String mood) {
-        output(v, imgPath+"pet.gif", basicSound);
-//        outputReactionOnMood(v, mood);
-    }
-    public void clean(ImageView v, String mood) {
-        output(v, imgPath+"clean.gif", basicSound);
-//        outputReactionOnMood(v, mood);
-    }
-    public void meds(ImageView v, String mood) {
-        output(v, imgPath+"boom.gif", basicSound);
-//        outputReactionOnMood(v, mood);
-    }
+//    public void eat(ImageView v, String mood) {
+//        output(v, imgPath+"eat4.gif", basicSound);
+////        outputReactionOnMood(v, mood);
+//    }
+//    public void drink(ImageView v, String mood) {
+//        output(v, imgPath+"eat3.gif", basicSound);
+////        outputReactionOnMood(v, mood);
+//    }
+//    public void play(ImageView v, String mood) {
+//        output(v, imgPath+"play.gif", basicSound);
+////        outputReactionOnMood(v, mood);
+//    }
+//    public void pet(ImageView v, String mood) {
+//        output(v, imgPath+"pet.gif", basicSound);
+////        outputReactionOnMood(v, mood);
+//    }
+//    public void clean(ImageView v, String mood) {
+//        output(v, imgPath+"clean.gif", basicSound);
+////        outputReactionOnMood(v, mood);
+//    }
+//    public void meds(ImageView v, String mood) {
+//        output(v, imgPath+"boom.gif", basicSound);
+////        outputReactionOnMood(v, mood);
+//    }
 
     /**
      * long standing reactions
@@ -110,7 +104,9 @@ public class Animation {
         reactionOnGetMood(v, mood);
     }
     public void reactionOnGetMood(ImageView v, String mood) {
-        if (mood.contains("asleep")) {
+        if (mood.contains("dead")) {
+            hugs(v);
+        } else if (mood.contains("asleep")) {
             sleep(v);
         } else if (mood.contains("sick")) {
             sneeze(v);
@@ -157,4 +153,5 @@ public class Animation {
         output(v, imgPath+"sick.gif", "sounds/sneeze.wav");
         soundTimeout("sounds/cough.wav", 2, 1);
     }
+    public void hugs(ImageView v) { output(v, imgPath+"hugs.gif", null); }
 }

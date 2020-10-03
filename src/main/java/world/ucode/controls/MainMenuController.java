@@ -1,6 +1,5 @@
 package world.ucode.controls;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import world.ucode.scenes.NewScene;
@@ -13,19 +12,19 @@ public class MainMenuController {
     public Button exitButton;
 
     @FXML
-    public void handleNewButtonAction(ActionEvent event) { (new NewScene("NewGame.fxml")).setScene(); }
+    public void handleNewButtonAction() { (new NewScene("NewGame.fxml")).setScene(); }
 
     @FXML
-    public void handleLoadButtonAction(ActionEvent event) {
+    public void handleLoadButtonAction() {
         (new NewScene("LoadGame.fxml")).setScene();
     }
 
     @FXML
-    public void handleSettingsButtonAction(ActionEvent event) {
+    public void handleSettingsButtonAction() {
         (new NewScene("Settings.fxml")).setScene();
     }
 
     @FXML
-    public void handleExitButtonAction(ActionEvent event) { System.exit(0); }
+    public void handleExitButtonAction() { System.exit(0); }
 
 }

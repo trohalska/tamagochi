@@ -1,13 +1,10 @@
 package world.ucode;
 
 import world.ucode.utils.Calculation;
-
 import java.util.Random;
 
-import static world.ucode.GameGeometry.*;
-
 public class Model {
-    private Calculation calc;
+    private final Calculation calc;
 
     public int id;
     private String name;
@@ -72,9 +69,7 @@ public class Model {
     public String getTime() {
         return time;
     }
-    public int getMax() {
-        return max;
-    }
+
     public int getHunger() {
         return hunger;
     }
@@ -101,17 +96,17 @@ public class Model {
     }
 
     public Model() {
-        this.calc = new Calculation(maxVital);
         Database.loadModel(this);
+        this.calc = new Calculation(max);
     }
 
     public void aging() { age++; }
     public int getAge() { return age; }
 
     private void checkVitals() {
-        if (hunger > max || hunger < 0) { health -= calc.m1();; }
-        if (thirst > max || thirst < 0) { health -= calc.m1(); }
-        if (cleanliness < 0)            { health -= calc.m1(); }
+        if (hunger > max || hunger < 0) { health--; }
+        if (thirst > max || thirst < 0) { health--; }
+        if (cleanliness < 0)            { health--; }
 
         if (health <= calc.m4()) {
             isSick = true;
@@ -123,54 +118,56 @@ public class Model {
         cleanliness = cleanliness > max ? max : (cleanliness < 0 ? 0 : cleanliness);
         tired = tired > max ? max : tired;
         health = health > max ? max : health;
-        if (health < 0) {
+        if (health <= 0) {
             health = 0;
             isAlive = false;
         }
     }
 
     public void feed() {
-        hunger -= calc.m2();
-        cleanliness -= calc.m2();
-        tired += calc.m1();
+        hunger -= 2;
+        cleanliness -= 2;
+        tired++;
         checkVitals();
     }
     public void giveWater() {
-        thirst -= calc.m2();
+        thirst -= 2;
         checkVitals();
     }
 
     public void walk() {
-        happiness += calc.m4();
-        hunger += calc.m2();
-        thirst += calc.m2();
-        tired += calc.m2();
-        cleanliness -= calc.m2();
+        happiness += 4;
+        hunger += 2;
+        thirst += 2;
+        tired += 2;
+        cleanliness -= 2;
         checkVitals();
     }
 
     public void pet() {
-        happiness += calc.m2();
+        happiness += 2;
         checkVitals();
     }
 
     public void clean() {
-        cleanliness += calc.m3();
+        cleanliness += 3;
         checkVitals();
     }
 
     public void giveMedicine() {
-        if (health >= maxVital) {
+        if (health >= max) {
             isAlive = false;
         } else if ((new Random()).nextBoolean()) {
-            health += calc.m5();
+            health += 5;
         }
         checkVitals();
     }
 
     public String getMood() {
         String res;
-        if (tired == max) {
+        if (!isAlive) {
+            res = "I'm dead, I'll come to you in your nightmares!";
+        } else if (tired == max) {
             res = "asleep, hrrrr...";
         } else if (health <= calc.m4() || isSick) {
             res = "I think, I'm sick ((";
@@ -200,13 +197,13 @@ public class Model {
         tired++;
 
         if (hunger >= calc.m7()) {
-            happiness -= calc.m1();
+            happiness--;
         }
         if (thirst >= calc.m7()) {
-            happiness -= calc.m1();
+            happiness--;
         }
         if (cleanliness <= calc.m3()) {
-            happiness -= calc.m1();
+            happiness--;
         }
         checkVitals();
     }
@@ -230,9 +227,9 @@ public class Model {
     }
 
     public boolean isSleep() {
-        return tired == max ? true : false;
+        return tired == max;
     }
     public boolean isSickToDeath() {
-        return (isSick && tired >= calc.m8() && hunger >= calc.m7()) ? true : false;
+        return isSick && tired >= calc.m8() && hunger >= calc.m7();
     }
 }
