@@ -50,6 +50,6 @@ With time passed:
 
 ![menu](https://i.postimg.cc/Gh36VJ1T/tamagochi-02.png?raw=true "menu")
 
-![settings](https://i.postimg.cc/3rFPtfzH/tamagochi-01.png?raw=true "settings")
+![settings](https://i.postimg.cc/sD245CxB/tamagochi-01.png?raw=true "settings")
 
 ![new game](https://i.postimg.cc/15WbQn9C/tamagochi-04.png?raw=true "new game")
