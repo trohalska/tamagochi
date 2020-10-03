@@ -51,7 +51,7 @@
     </HBox>
    <HBox fx:id="Box11" alignment="TOP_CENTER" prefHeight="90.0" prefWidth="600.0" GridPane.rowIndex="2">
       <children>
-         <Label prefHeight="28.0" text="Sounds:">
+         <Label prefHeight="28.0" text="Theme:">
             <HBox.margin>
                <Insets right="20.0" />
             </HBox.margin>
